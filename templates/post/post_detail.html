@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card bg-dark text-white mb-3">
+    <div class="card-body">
+        <h3>Posted by {{ post.author.username }} | <small>{{ post.date }}</small> </h3>
+
+        <p>{{ post.content }}</p>
+
+        <hr>
+
+        <h3>Comments</h3>
+
+        {% for comment in post.comments.all %}
+
+        <div>
+            <strong>{{ comment.author.username }}</strong>
+            <p>{{ comment.content }}</p>
+
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    {% if profile_user.background_picture %}
+    <img src="{{ profile_user.background_picture.url }}"
+     alt="{{ profile_user.username }} Background picture">
+    {% endif %}
+
+    {% if profile_user.profile_picture %}
+    <img src="{{ profile_user.profile_picture.url}}"
+     alt="Profile Picture" width="150">
+     {% endif %}
+
+     <h2>{{ profile_user.username }}</h2>
+     <p>{{ profile_user.bio }}</p>
+     
+     <hr>
+
+     <h3>Posts</h3>
+
+    {% for post in profile_user.post_set.all %}
+        <div>
+            <p>{{ post.content }}</p>
+            <small>{{ post.date }}</small>
+        </div>
+        {% empty %}
+        <p>No posts at the moment.</p>
+    {% endfor %}
+</div>
+
+{% endblock content %}

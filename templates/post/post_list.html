@@ -3,24 +3,17 @@
 {%block content %}
 
 {% for post in posts %}
-    <h2>{{ post.author }}</h2>
-    <p>{{ post.content }}</p>
-    <small>{{ post.date }}</small>
-
-    <h3>Comments</h3>
-
-    {% for comment in post.comments.all %}
-        <p>
-            <strong>{{ comment.author }}</strong>:
-            {{ comment.content }}
-        </p>
-    {% empty %}
-        <p>No comments yet.</p>
-    {% endfor %}
-
-    <hr>
-{% empty %}
-    <p>No posts yet.</p>
+<a class="text-white text-decoration-none" href="{% url 'post_detail' post.pk %}">
+    <div class="card bg-dark text-white mb-3">
+        <div class="card-body">
+            <a class="nav-link text-grey text-decoration-none" href="{% url 'profile' post.author.pk %}">
+                <h2>{{ post.author }}</h2>
+            </a>
+            <p>{{ post.content }}</p>
+            <small>{{ post.date }}</small>
+        </div>
+    </div>
+</a>
 {% endfor %}
 
 {% endblock content %}
