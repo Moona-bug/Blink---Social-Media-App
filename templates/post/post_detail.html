@@ -4,8 +4,10 @@
 
 <div class="card bg-dark text-white mb-3">
     <div class="card-body">
-        <h3>Posted by {{ post.author.username }} | <small>{{ post.date }}</small> </h3>
-
+        <a class="text-white text-decoration-none" href="{% url 'profile' post.author.pk %}">
+             <h3>Posted by {{ post.author.username }} | <small>{{ post.date }}</small> </h3>
+        </a>
+    
         <p>{{ post.content }}</p>
 
         <hr>

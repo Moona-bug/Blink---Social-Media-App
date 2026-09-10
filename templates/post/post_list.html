@@ -9,8 +9,12 @@
             <a class="nav-link text-grey text-decoration-none" href="{% url 'profile' post.author.pk %}">
                 <h2>{{ post.author }}</h2>
             </a>
-            <p>{{ post.content }}</p>
-            <small>{{ post.date }}</small>
+
+        
+            <a class="text-white text-decoration-none" href="{% url 'post_detail' post.pk %}">
+                <p>{{ post.content }}</p>
+                <small>{{ post.date }}</small>
+            </a>
         </div>
     </div>
 </a>
