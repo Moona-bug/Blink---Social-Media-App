@@ -2,10 +2,12 @@
 
 {% block content %}
 <div>
-    {% if profile_user.background_picture %}
-    <img src="{{ profile_user.background_picture.url }}"
-     alt="{{ profile_user.username }} Background picture">
-    {% endif %}
+    <div class="profile-background"
+        {% if profile_user.background_picture %}
+            style="background-image: url('{{ profile_user.background_picture.url }}');"
+    {% endif %}>
+
+    </div>
 
     {% if profile_user.profile_picture %}
     <img src="{{ profile_user.profile_picture.url}}"
@@ -14,6 +16,10 @@
 
      <h2>{{ profile_user.username }}</h2>
      <p>{{ profile_user.bio }}</p>
+
+     {% if user == profile_user %}
+        <a href="{% url 'profile_edit' %}" class="btn btn-primary">Edit Profile</a>
+    {% endif %}
      
      <hr>
 
