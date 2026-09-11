@@ -1,7 +1,17 @@
+body {
+    background-color: red !important;
+}
+
 .profile-background{
     width: 100%;
-    height: 250px;
+    height: 50px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+.profile-background img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
