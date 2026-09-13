@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import View
 
-from .models import Post, Like, Comment
+from .models import Post, Like, Repost
 from .forms import CommentForm
 
 # Create your views here.
@@ -58,3 +58,19 @@ class AddCommentView(LoginRequiredMixin, View):
             comment.save()
 
         return redirect('post_detail', pk=post.pk)
+
+class RepostView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+
+        repost, created = Repost.objects.get_or_create(
+            post = post,
+            user=request.user
+        )
+
+        if not created:
+            repost.delete()
+
+        return redirect(
+            request.META.get('HTTP_REFERER', 'home')
+        )
