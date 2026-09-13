@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView
-from .models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.views import View
+
+from .models import Post, Like, Comment
+from .forms import CommentForm
 
 # Create your views here.
 class PostView(ListView):
@@ -25,3 +28,33 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post/post_detail.html'
     context_object_name = 'post'
+
+class LikePostView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+
+        like, created = Like.objects.get_or_create(
+            post=post,
+            user=request.user
+        )
+
+        if not created:
+            like.delete()
+
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+class AddCommentView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+
+            comment.post = post
+            comment.author = request.user
+
+            comment.save()
+
+        return redirect('post_detail', pk=post.pk)

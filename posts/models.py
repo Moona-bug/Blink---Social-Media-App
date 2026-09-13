@@ -28,3 +28,43 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+class Like(models.Model):
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE,
+        related_name='likes'
+    )
+
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['post', 'user'],
+                name='unique_like')
+        ]
+
+class Repost(models.Model):
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='reposts'
+    )
+
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+    )
+
+    date = models.DateTimeField(auto_now_add=True)
+
+    class meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['post', 'user'],
+                name='unique_repost'
+            )
+        ]
