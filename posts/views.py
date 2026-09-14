@@ -13,6 +13,27 @@ class PostView(ListView):
     template_name = 'post/post_list.html'
     context_object_name = 'posts'
 
+    def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+    
+            if self.request.user.is_authenticated:
+                liked_posts = Like.objects.filter(
+                    user=self.request.user
+                ).values_list('post_id', flat=True)
+    
+                reposted_posts = Repost.objects.filter(
+                    user=self.request.user
+                ).values_list('post_id', flat=True)
+    
+                context['liked_posts'] = liked_posts
+                context['reposted_posts'] = reposted_posts
+    
+            else:
+                context['liked_posts'] = []
+                context['reposted_posts'] = []
+    
+            return context
+
 class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'post/post_new.html'
@@ -28,6 +49,27 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post/post_detail.html'
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            liked_posts = Like.objects.filter(
+                user=self.request.user
+            ).values_list('post_id', flat=True)
+
+            reposted_posts = Repost.objects.filter(
+                user=self.request.user
+            ).values_list('post_id', flat=True)
+
+            context['liked_posts'] = liked_posts
+            context['reposted_posts'] = reposted_posts
+
+        else:
+            context['liked_posts'] = []
+            context['reposted_posts'] = []
+
+        return context
 
 class LikePostView(LoginRequiredMixin, View):
     def post(self, request, pk):

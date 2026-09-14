@@ -13,12 +13,25 @@
         
             <a class="text-white text-decoration-none" href="{% url 'post_detail' post.pk %}">
                 <p>{{ post.content }}</p>
+                
+                <small>{{ post.date }}</small>
+            </a>
 
-                <div class="d-flex gap-3">
+                <div class="d-flex gap-3 mt-2">
                     <form action="{% url 'like_post' post.pk %}" method='post'>
+
                         {% csrf_token %}
+
                         <button type="submit">
-                            <i class="bi bi-hand-thumbs-up"></i> {{ post.likes.count }}
+                            {% if post.pk in liked_posts %}
+                                <i class="bi bi-hand-thumbs-up-fill"></i>
+
+                            {% else %}
+                                <i class="bi bi-hand-thumbs-up"></i>
+
+                            {% endif %}
+
+                            {{ post.likes.count }}
                         </button>
                     </form>
 
@@ -27,6 +40,8 @@
 
                         <button type="submit">
                             <i class="bi bi-chat"></i>
+
+                            {{ post.comments.count}}
                         </button>
                     </form>
 
@@ -34,13 +49,18 @@
                         {% csrf_token %}
 
                         <button type="submit">
-                            <i class="bi bi-repeat"></i> {{ post.reposts.count}}
+                            {% if post.pk in reposted_posts %}
+                                <i class="bi bi-repeat-1"></i>
+                            
+                            {% else %}
+                                <i class="bi bi-repeat"></i>
+                            {% endif %}
+
+                            {{ post.reposts.count}}
                         </button>
                     </form>
                 </div>
 
-                <small>{{ post.date }}</small>
-            </a>
         </div>
     </div>
 </a>
