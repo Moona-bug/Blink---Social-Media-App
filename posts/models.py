@@ -8,6 +8,19 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
     content = models.TextField(max_length=200)
+
+    image = models.ImageField(
+        upload_to='post_images/',
+        blank=True,
+        null=True
+    )
+
+    video = models.FileField(
+        upload_to='post_videos/',
+        blank=True,
+        null=True
+    )
+
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
