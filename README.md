@@ -9,5 +9,5 @@ Blink is a social media app that lets users to post messages and media.
 
 Login Page
 
-![APP Screenshot](./images\Screenshot (1).png)
-![APP Screenshot](./images\Screenshot (2).png)
+![APP Screenshot](./images/Screenshot (1).png)
+![APP Screenshot](./images/Screenshot (2).png)
