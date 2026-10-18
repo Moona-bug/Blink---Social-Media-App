@@ -8,7 +8,7 @@ Blink is a social media app that lets users to post messages and media.
 - CSS (bootstrap)
 
 *   Login Page
-![APP Screenshot](./screenshots/Screenshot (1).png)
+![Login Page](./screenshots/loginpage.png)
 
 *   Profile Page
-![APP Screenshot](./screenshots/Screenshot (2).png)
+![Profile Page](./screenshots/profilepage.png)
