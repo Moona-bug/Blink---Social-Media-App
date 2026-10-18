@@ -2,12 +2,13 @@
     
 Blink is a social media app that lets users to post messages and media.
 
-    TOOLS USED
--Python (Django)
--HTML
--CSS (bootstrap)
+*    TOOLS USED
+- Python (Django)
+- HTML
+- CSS (bootstrap)
 
-Login Page
+*   Login Page
+![APP Screenshot](./screenshots/Screenshot (1).png)
 
-![APP Screenshot](./images/Screenshot (1).png)
-![APP Screenshot](./images/Screenshot (2).png)
+*   Profile Page
+![APP Screenshot](./screenshots/Screenshot (2).png)
